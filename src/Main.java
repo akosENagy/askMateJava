@@ -3,7 +3,6 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.cybersoft.askmate.controller.Controller;
 import com.cybersoft.askmate.model.Question;
-import com.cybersoft.askmate.dao.QuestionDao;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -26,7 +25,6 @@ public class Main {
     }
 
     private static void populateQuestionDao() {
-        QuestionDao qdao = QuestionDao.getInstance();
         new Question("Why?", "SERIOUSLY WHY?");
         new Question("Orly?", "O R L Y ?");
     }

@@ -41,8 +41,9 @@
     <div class="container index-content">
         <div class="questions">
             <div class="question-preview well" th:each="question, iterStat : ${questions}">
-                <p th:text="${question.id}"></p>
-                <p th:text="${question.title}"></p>
+                <p class="question-preview-id" th:text="${question.id}"></p>
+                <p class="question-preview-title" th:text="${question.title}"></p>
+                <p class="question-preview-content" th:text="${question.content}"></p>
             </div>
         </div>
     </div>
