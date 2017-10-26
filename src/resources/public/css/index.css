@@ -1,5 +1,6 @@
 .navbar .container-fluid {
     background-color: #5174ad;
+    margin-bottom: 0;
 }
 
 .navbar-default .navbar-nav>.active>a {
@@ -68,15 +69,35 @@
     border-radius: 5px;
     color: #f7f7f7;
     padding: 10px 15px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     font-size: 1.3em;
     font-weight: bold;
 }
 
 #question-title-box, #question-content-box {
     padding: 5px 10px;
+    margin: 10px;
+    border: 1px solid #1832a5;
+    border-radius: 3px;
+}
+
+#question-title-box {
+    text-align: center;
+    resize: none;
+    margin-top: 0;
 }
 
 #new-question-submission-box {
     display: none;
+    margin-bottom: 20px;
+}
+
+#submit-new-question-button {
+    background-color: #5174ad;
+    border: 0;
+    border-radius: 5px;
+    color: #f7f7f7;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
