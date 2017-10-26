@@ -7,12 +7,12 @@ public abstract class ForumElement {
     protected int id;
     private String title;
     private String content;
-    private Timestamp timeOfPosting;
+    private Timestamp timestamp;
 
     public ForumElement(String title, String content) {
         this.title = title;
         this.content = content;
-        this.timeOfPosting = new Timestamp(System.currentTimeMillis());
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public int getId() {
@@ -33,5 +33,9 @@ public abstract class ForumElement {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 }

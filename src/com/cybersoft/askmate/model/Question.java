@@ -20,6 +20,7 @@ public class Question extends ForumElement {
         return answerList;
     }
 
+
     public void addAnswer(Answer answer) {
         this.answerList.add(answer);
     }

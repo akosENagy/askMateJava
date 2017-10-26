@@ -25,7 +25,7 @@ public class Main {
     }
 
     private static void populateQuestionDao() {
-        new Question("Why?", "SERIOUSLY WHY?");
+        new Question("Why is it that a snorlax is blocking my way?", "I really can't get past this fat fuck. I know i need a pokéflute but where do I find one?");
         new Question("Orly?", "O R L Y ?");
     }
 }
