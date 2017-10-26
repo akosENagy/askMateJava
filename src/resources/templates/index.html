@@ -25,6 +25,7 @@
             crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <script type="text/javascript" src="/js/main.js" th:defer="true"></script>
 </head>
 
 <body>
@@ -39,6 +40,16 @@
         </div>
     </nav>
     <div class="container index-content">
+        <div id="new-question-container">
+            <button id="new-question-button">Ask a new question</button><br />
+            <div id="new-question-submission-box">
+                <input id="question-title-box" placeholder="Enter the title of your question..." size="50" /><br />
+                <textarea id="question-content-box" placeholder="Enter your question..." rows="15" cols="75"></textarea><br />
+                <a href="#">
+                    <button id="submit-new-question-button">Submit</button>
+                </a>
+            </div>
+        </div>
         <div class="questions">
             <div class="question-preview well" th:each="question, iterStat : ${questions}">
                 <div class="question-preview-header">

@@ -56,3 +56,27 @@
     display: inline;
     float: right;
 }
+
+#new-question-container {
+    align-content: center;
+    text-align: center;
+}
+
+#new-question-button {
+    background-color: #5174ad;
+    border: 0;
+    border-radius: 5px;
+    color: #f7f7f7;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#question-title-box, #question-content-box {
+    padding: 5px 10px;
+}
+
+#new-question-submission-box {
+    display: none;
+}
