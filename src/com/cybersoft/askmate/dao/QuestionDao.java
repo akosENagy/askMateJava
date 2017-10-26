@@ -1,6 +1,7 @@
 package com.cybersoft.askmate.dao;
 
 import com.cybersoft.askmate.model.Question;
+import spark.Request;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class QuestionDao {
     }
 
     public void add(Question question) {
-        this.questions.add(question);
+        this.questions.add(0, question);
     }
 
     public void remove(Question question) {
@@ -37,5 +38,9 @@ public class QuestionDao {
             questionMap.put(question.getId(), question);
         }
         return questionMap;
+    }
+
+    public void createQuestionFromRequest(Request req) {
+        new Question(req.queryParams("new-question-title"), req.queryParams("new-question-content"));
     }
 }

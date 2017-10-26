@@ -83,8 +83,11 @@
 
 #question-title-box {
     text-align: center;
-    resize: none;
     margin-top: 0;
+}
+
+#question-content-box {
+    resize: none;
 }
 
 #new-question-submission-box {
@@ -100,4 +103,9 @@
     padding: 10px 15px;
     font-size: 1.2em;
     font-weight: bold;
+}
+
+#ask-button-container {
+    align-content: center;
+    text-align: center;
 }

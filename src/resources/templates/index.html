@@ -40,15 +40,17 @@
         </div>
     </nav>
     <div class="container index-content">
-        <div id="new-question-container">
+        <div id="ask-button-container">
             <button id="new-question-button">Ask a new question</button><br />
-            <div id="new-question-submission-box">
-                <input id="question-title-box" placeholder="Enter the title of your question..." size="72" /><br />
-                <textarea id="question-content-box" placeholder="Enter your question..." rows="15" cols="75"></textarea><br />
-                <a href="#">
-                    <button id="submit-new-question-button">Submit</button>
-                </a>
-            </div>
+        </div>
+        <div id="new-question-container">
+            <form method="post" action="/submit-new-question" id="new-question-form">
+                <div id="new-question-submission-box">
+                    <input name="new-question-title" id="question-title-box" placeholder="Enter the title of your question..." size="72" /><br />
+                    <textarea name="new-question-content" id="question-content-box" placeholder="Enter your question..." rows="15" cols="75"></textarea><br />
+                    <input type="submit" id="submit-new-question-button" value="Submit" />
+                </div>
+            </form>
         </div>
         <div class="questions">
             <div class="question-preview well" th:each="question, iterStat : ${questions}">
