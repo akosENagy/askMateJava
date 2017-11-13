@@ -4,7 +4,7 @@
 <body>
     <nav th:replace="header :: nav"></nav>
     <div class="container">
-        <div class="question-preview well">
+        <div class="row question-preview well">
             <div class="question-preview-header">
                 <p class="question-preview-id" th:text="'#' + ${question.id}"></p>
                 <h2 class="question-preview-title" th:text="${question.title}"></h2>
@@ -13,6 +13,18 @@
                 <p class="question-preview-content" th:text="${question.content}"></p>
                 <p class="question-preview-timestamp" th:text="${question.timestamp}"></p>
             </div>
+        </div>
+        <div id="answer-button-container">
+            <button id="new-answer-button">Answer this question</button><br />
+        </div>
+        <div class="new-answer-container">
+            <form method="post" th:action="'/questions/'+${question.id}+'/answer'" id="new-answer-form">
+                <div id="new-answer-submission-box">
+                    <input name="new-answer-title" id="answer-title-box" placeholder="Enter the title of your answer..." size="72" /><br />
+                    <textarea name="new-answer-content" id="answer-content-box" placeholder="Enter your answer..." rows="15" cols="75"></textarea><br />
+                    <input type="submit" id="submit-new-answer-button" value="Submit" />
+                </div>
+            </form>
         </div>
         <div class="answers row">
             <div th:each="answer : ${question.answerList}" class="answer-container container">
