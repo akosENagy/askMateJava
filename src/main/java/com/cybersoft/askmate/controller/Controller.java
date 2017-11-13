@@ -30,7 +30,6 @@ public class Controller {
         String path = req.pathInfo();
         path = path.split("/")[path.split("/").length - 1];
         int questionId = Integer.valueOf(path);
-        System.out.println(questionId);
         query.setParameter("id", questionId);
         Question question = (Question) query.getSingleResult();
         params.put("question", question);
@@ -48,19 +47,20 @@ public class Controller {
     }
 
     public static String submitAnswer(Request req, Response res) {
-        Answer answer = createAnswerFromRequest(req);
-        DataManager.getInstance().persist(answer);
-        res.redirect("/");
-        return null;
-    }
-
-    public static Answer createAnswerFromRequest(Request req) {
         Answer answer =  new Answer(req.queryParams("new-answer-title"), req.queryParams("new-answer-content"));
         Query query = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getById");
-        query.setParameter("id", Integer.valueOf(req.pathInfo().substring(1)));
+        String path = req.pathInfo();
+        System.out.println(path);
+        path = path.split("/")[path.split("/").length - 2];
+        System.out.println(path);
+        int questionId = Integer.valueOf(path);
+        query.setParameter("id", questionId);
         Question question = (Question) query.getSingleResult();
         answer.setQuestion(question);
-        return answer;
+        DataManager.getInstance().persist(answer);
+
+        res.redirect("/questions/" + questionId);
+        return null;
     }
 
     private static String renderTemplate(Map model, String template) {
