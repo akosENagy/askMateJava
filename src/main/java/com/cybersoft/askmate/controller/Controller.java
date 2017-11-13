@@ -15,12 +15,30 @@ import java.util.Map;
 
 
 public class Controller {
+
+    // Rendering functions
     public static String renderQuestions(Request req, Response res){
         Map params = new HashMap<>();
         List<Question> questions = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getAll").getResultList();
         params.put("questions", questions);
         return renderTemplate(params, "index");
     }
+
+    public static String renderSingleQuestion(Request req, Response res) {
+        Map params = new HashMap<>();
+        Query query = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getById");
+        String path = req.pathInfo();
+        path = path.split("/")[path.split("/").length - 1];
+        int questionId = Integer.valueOf(path);
+        System.out.println(questionId);
+        query.setParameter("id", questionId);
+        Question question = (Question) query.getSingleResult();
+        params.put("question", question);
+        return renderTemplate(params, "details");
+    }
+
+
+    //Utilities
 
     public static String submitQuestion(Request req, Response res) {
         Question question = createQuestionFromRequest(req);

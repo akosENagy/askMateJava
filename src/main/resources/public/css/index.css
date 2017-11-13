@@ -109,3 +109,8 @@
     align-content: center;
     text-align: center;
 }
+
+.question-anchor, .question-anchor:hover {
+    text-decoration: none;
+    color: #f7f7f7;
+}

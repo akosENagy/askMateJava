@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: head"></head>
+<body>
+    <nav th:replace="header :: nav"></nav>
+    <div class="container">
+        <div class="question-preview well">
+            <div class="question-preview-header">
+                <p class="question-preview-id" th:text="'#' + ${question.id}"></p>
+                <h2 class="question-preview-title" th:text="${question.title}"></h2>
+            </div>
+            <div class="question-preview-body">
+                <p class="question-preview-content" th:text="${question.content}"></p>
+                <p class="question-preview-timestamp" th:text="${question.timestamp}"></p>
+            </div>
+        </div>
+        <div class="answers row">
+            <div th:each="answer : ${question.answerList}" class="answer-container container">
+                <div class="row answer-header">
+                    <h3 class="answer-title" th:text="${answer.title}"></h3>
+                    <p class="answer-id" th:text="${answer.id}"></p>
+                </div>
+                <div class="row answer-body">
+                    <p class="answer-content" th:text="${answer.content}"></p>
+                    <p class="answer-timestamp" th:text="${answer.timestamp}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
