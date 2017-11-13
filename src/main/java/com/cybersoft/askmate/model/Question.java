@@ -4,12 +4,19 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-
-@NamedQuery(
-        name = "Question.getAll",
-        query = "SELECT q FROM Question q ORDER BY timestamp DESC"
-)
+@NamedQueries({
+        @NamedQuery(
+                name = "Question.getAll",
+                query = "SELECT q FROM Question q ORDER BY timestamp DESC"
+        ),
+        @NamedQuery(
+                name = "Question.getById",
+                query = "SELECT q FROM Question q WHERE id = :id"
+        )
+})
 @Entity
 @Table(name = "Question")
 public class Question {
@@ -21,9 +28,8 @@ public class Question {
     private String content;
     @CreationTimestamp
     private Timestamp timestamp;
-
-//    @OneToMany
-//    private List<Answer> answerList = new ArrayList<>();
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private List<Answer> answerList = new ArrayList<>();
 
     public Question(String title, String content) {
         this.title = title;
@@ -34,14 +40,17 @@ public class Question {
 
     }
 
-//    public List<Answer> getAnswerList() {
-//        return answerList;
-//    }
+    public List<Answer> getAnswerList() {
+        return answerList;
+    }
 
+    public void setAnswerList(List<Answer> answerList) {
+        this.answerList = answerList;
+    }
 
-//    public void addAnswer(Answer answer) {
-//        this.answerList.add(answer);
-//    }
+    public void addAnswer(Answer answer) {
+        this.answerList.add(answer);
+    }
 
 
     // Getters & Setters

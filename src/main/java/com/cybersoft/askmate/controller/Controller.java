@@ -1,15 +1,18 @@
 package com.cybersoft.askmate.controller;
 
 import com.cybersoft.askmate.dao.DataManager;
+import com.cybersoft.askmate.model.Answer;
 import com.cybersoft.askmate.model.Question;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class Controller {
     public static String renderQuestions(Request req, Response res){
@@ -24,6 +27,22 @@ public class Controller {
         DataManager.getInstance().persist(question);
         res.redirect("/");
         return null;
+    }
+
+    public static String submitAnswer(Request req, Response res) {
+        Answer answer = createAnswerFromRequest(req);
+        DataManager.getInstance().persist(answer);
+        res.redirect("/");
+        return null;
+    }
+
+    public static Answer createAnswerFromRequest(Request req) {
+        Answer answer =  new Answer(req.queryParams("new-answer-title"), req.queryParams("new-answer-content"));
+        Query query = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getById");
+        query.setParameter("id", Integer.valueOf(req.pathInfo().substring(1)));
+        Question question = (Question) query.getSingleResult();
+        answer.setQuestion(question);
+        return answer;
     }
 
     private static String renderTemplate(Map model, String template) {
