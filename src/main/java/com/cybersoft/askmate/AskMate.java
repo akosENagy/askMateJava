@@ -1,13 +1,12 @@
-import static spark.Spark.*;
-import static spark.debug.DebugScreen.enableDebugScreen;
+package com.cybersoft.askmate;
 
 import com.cybersoft.askmate.controller.Controller;
-import com.cybersoft.askmate.dao.QuestionDao;
 import com.cybersoft.askmate.model.Question;
-import spark.ModelAndView;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-public class Main {
+import static spark.Spark.*;
+
+
+public class AskMate {
 
     public static void main(String[] args) {
 
@@ -20,16 +19,8 @@ public class Main {
         populateQuestionDao();
 
         // routes
-        get("/", (req, res) -> {
-            return new ThymeleafTemplateEngine().render(Controller.renderQuestions(req, res));
-        });
-
-        post("/submit-new-question", (req, res) -> {
-            QuestionDao questionDao = QuestionDao.getInstance();
-            questionDao.createQuestionFromRequest(req);
-            res.redirect("/");
-            return null;
-        });
+        get("/", Controller::renderQuestions);
+        post("/submit-new-question", Controller::submitQuestion);
     }
 
     private static void populateQuestionDao() {
