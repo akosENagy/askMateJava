@@ -9,7 +9,7 @@ public class Answer extends ForumElement {
         super(title, content);
         this.id = idCounter++;
         this.question = question;
-        this.question.addAnswer(this);
+        //this.question.addAnswer(this);
     }
 
     public Question getQuestion() {

@@ -1,27 +1,45 @@
 package com.cybersoft.askmate.model;
 
-import com.cybersoft.askmate.dao.QuestionDao;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
-public class Question extends ForumElement {
 
-    private static int idCounter = 1;
-    private List<Answer> answerList = new ArrayList<>();
+@NamedQuery(
+        name = "Question.getAll",
+        query = "SELECT q FROM Question q"
+)
+@Entity
+@Table(name = "Question")
+public class Question {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String title;
+    private String content;
+    @CreationTimestamp
+    private Timestamp timestamp;
+
+//    @OneToMany
+//    private List<Answer> answerList = new ArrayList<>();
 
     public Question(String title, String content) {
-        super(title, content);
-        this.id = idCounter++;
-        QuestionDao.getInstance().add(this);
+        this.title = title;
+        this.content = content;
     }
 
-    public List<Answer> getAnswerList() {
-        return answerList;
+    public Question() {
+
     }
 
+//    public List<Answer> getAnswerList() {
+//        return answerList;
+//    }
 
-    public void addAnswer(Answer answer) {
-        this.answerList.add(answer);
-    }
+
+//    public void addAnswer(Answer answer) {
+//        this.answerList.add(answer);
+//    }
 }

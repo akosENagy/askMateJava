@@ -1,5 +1,7 @@
 package com.cybersoft.askmate.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.sql.Timestamp;
 
 public abstract class ForumElement {
@@ -7,12 +9,16 @@ public abstract class ForumElement {
     protected int id;
     private String title;
     private String content;
+    @CreationTimestamp
     private Timestamp timestamp;
 
     public ForumElement(String title, String content) {
         this.title = title;
         this.content = content;
-        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public ForumElement() {
+
     }
 
     public int getId() {
