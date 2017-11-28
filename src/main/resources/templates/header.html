@@ -28,12 +28,16 @@
     <script type="text/javascript" src="/js/main.js" th:defer="true"></script>
 </head>
 <body>
-    <nav th:fragment="nav" class="navbar navbar-default">
+    <nav th:fragment="nav(user)" class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">AskMate</a>
             </div>
-            <ul class="nav navbar-nav navbar-right">
+            <ul th:if="${user} != null" class="nav navbar-nav navbar-right">
+                <li class="active"><a  class="navbar-username" href="#" th:text="${user.username}"></a></li>
+                <li class="active"><a class="logout-button" href="/logout">Logout</a></li>
+            </ul>
+            <ul th:unless="${user} != null" class="nav navbar-nav navbar-right">
                 <li class="active"><a href="/login">Login</a></li>
                 <li class="active"><a href="/register">Register</a></li>
             </ul>

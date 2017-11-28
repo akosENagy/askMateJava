@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: head"></head>
 <body>
-    <nav th:replace="header :: nav"></nav>
+    <nav th:replace="header :: nav(${user})"></nav>
 
     <div class="container index-content">
         <div th:if="${user}" id="ask-button-container">
