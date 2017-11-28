@@ -16,3 +16,15 @@ var addNewAnswerBox = function() {
     document.getElementById('new-answer-button').style.display = 'none';
     document.getElementById('new-answer-submission-box').style.display = 'block';
 };
+
+var validateRegform = function() {
+    var password = document.getElementById('password').value;
+    var pwconfirm = document.getElementById('pw-confirm').value;
+
+    if (password === pwconfirm) {
+        return true;
+    } else {
+        alert("Passwords don't match!");
+        return false;
+    }
+};
