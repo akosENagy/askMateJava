@@ -36,6 +36,9 @@ public class Controller {
         return renderTemplate(params, "details");
     }
 
+    public static String renderRegsiterForm(Request request, Response response) {
+        return renderTemplate(new HashMap(), "register");
+    }
 
     //Utilities
 

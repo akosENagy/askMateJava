@@ -17,6 +17,7 @@ public class AskMate {
 
         // routes
         get("/", Controller::renderQuestions);
+        get("/register", Controller::renderRegsiterForm);
         get("/questions/:id", Controller::renderSingleQuestion);
         post("/submit-new-question", Controller::submitQuestion);
         post("/questions/:id/answer", Controller::submitAnswer);

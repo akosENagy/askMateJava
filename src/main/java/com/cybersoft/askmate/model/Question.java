@@ -30,6 +30,8 @@ public class Question {
     private Timestamp timestamp;
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<Answer> answerList = new ArrayList<>();
+    @ManyToOne
+    private User user;
 
     public Question(String title, String content) {
         this.title = title;
@@ -85,5 +87,13 @@ public class Question {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

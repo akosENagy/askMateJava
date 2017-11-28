@@ -13,17 +13,17 @@ public class User {
     private int id;
 
     @Column(unique = true)
-    String username;
+    private String username;
 
     @Column(unique = true)
-    String email;
+    private String email;
 
-    String passwordHash;
+    private  String passwordHash;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private List<Answer> answers;
 
     public User() {

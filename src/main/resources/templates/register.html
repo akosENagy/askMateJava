@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: head"></head>
+<body>
+    <div class="container form-container">
+        <form class="registration-form" action="/register" method="POST">
+            <div class="form-fieldset">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-input" name="username" placeholder="Username">
+            </div>
+            <div class="form-fieldset">
+                <label class="form-label">Email address</label>
+                <input type="text" class="form-input" name="email" placeholder="Email address">
+            </div>
+            <div class="form-fieldset">
+                <label class="form-label">Password</label>
+                <input type="text" class="form-input" name="password" placeholder="Password">
+            </div>
+            <div class="form-fieldset">
+                <label class="form-label">Confirm password</label>
+                <input type="text" class="form-input" name="pw-confirm" placeholder="Confirm password">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

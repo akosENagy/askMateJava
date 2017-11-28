@@ -21,6 +21,9 @@ public class Answer {
     @ManyToOne
     private Question question;
 
+    @ManyToOne
+    private User user;
+
     public Answer(String title, String content) {
         this.title = title;
         this.content = content;
@@ -68,8 +71,15 @@ public class Answer {
         return question;
     }
 
-
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
