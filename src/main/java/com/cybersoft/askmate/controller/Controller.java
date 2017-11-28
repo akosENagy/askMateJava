@@ -32,14 +32,16 @@ public class Controller {
 
     // Rendering functions
     public String renderQuestions(Request req, Response res){
-        Map params = new HashMap<>();
+        params = new HashMap<>();
+        addUserIfLoggedIn(req);
         List<Question> questions = dataManager.getEntityManager().createNamedQuery("Question.getAll").getResultList();
         params.put("questions", questions);
         return renderTemplate(params, "index");
     }
 
     public String renderSingleQuestion(Request req, Response res) {
-        Map params = new HashMap<>();
+        params = new HashMap<>();
+        addUserIfLoggedIn(req);
         Query query = dataManager.getEntityManager().createNamedQuery("Question.getById");
         String path = req.pathInfo();
         path = path.split("/")[path.split("/").length - 1];
@@ -55,15 +57,32 @@ public class Controller {
     }
 
 
+    public String renderLoginForm(Request request, Response response) {
+        return renderTemplate(new HashMap(), "login");
+    }
+
     //Utilities
+    public String loginUser(Request request, Response response) {
+        String email = request.queryParams("email");
+        User user = dataManager.getUserByEmail(email);
+        request.session().attribute("user", user);
+        response.redirect("/");
+        return null;
+    }
+
+    public String logoutUser(Request request, Response response) {
+        request.session().attribute("user", null);
+        response.redirect("/");
+        return null;
+    }
 
     public String registerUser(Request request, Response response) {
-        User user = createUserFromRequest(request);
+        User user = createUserFromRegistrationRequest(request);
 
         if (user != null) {
             params.put("user", user);
 
-            //TODO re-registering user. (ConstraintViolationException)
+            //TODO handle re-registering user. (ConstraintViolationException)
             dataManager.persist(user);
             return renderTemplate(params, "index");
         }
@@ -72,7 +91,7 @@ public class Controller {
 
     }
 
-    private User createUserFromRequest(Request request) {
+    private User createUserFromRegistrationRequest(Request request) {
         String username = request.queryParams("username");
         String email = request.queryParams("email");
         String password = request.queryParams("password");
@@ -108,6 +127,13 @@ public class Controller {
 
         res.redirect("/questions/" + questionId);
         return null;
+    }
+
+    private void addUserIfLoggedIn(Request req) {
+        User user = req.session().attribute("user");
+        if (user != null) {
+            params.put("user", user);
+        }
     }
 
     private String renderTemplate(Map model, String template) {

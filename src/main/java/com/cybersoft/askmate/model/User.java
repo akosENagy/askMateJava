@@ -4,7 +4,10 @@ package com.cybersoft.askmate.model;
 import javax.persistence.*;
 import java.util.List;
 
-
+@NamedQuery(
+        name = "User.getByEmail",
+        query = "SELECT u FROM Users u WHERE email = :email"
+)
 @Entity(name = "Users")
 @Table(name = "Users")
 public class User {

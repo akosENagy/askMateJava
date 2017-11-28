@@ -29,6 +29,9 @@ public class AskMate {
         get("/", controller::renderQuestions);
         get("/register", controller::renderRegsiterForm);
         post("/register", controller::registerUser);
+        get("/login", controller::renderLoginForm);
+        post("/login", controller::loginUser);
+        get("/logout", controller::logoutUser);
         get("/questions/:id", controller::renderSingleQuestion);
         post("/submit-new-question", controller::submitQuestion);
         post("/questions/:id/answer", controller::submitAnswer);

@@ -1,5 +1,7 @@
 package com.cybersoft.askmate.dao;
 
+import com.cybersoft.askmate.model.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -29,5 +31,13 @@ public class DataManager {
         em.persist(obj);
         transaction.commit();
         em.close();
+    }
+
+    public User getUserByEmail(String email) {
+        User user = (User)getEntityManager().createNamedQuery("User.getByEmail")
+                .setParameter("email", email)
+                .getSingleResult();
+
+        return user;
     }
 }
