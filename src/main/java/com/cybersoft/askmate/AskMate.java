@@ -1,5 +1,6 @@
 package com.cybersoft.askmate;
 
+import com.cybersoft.askmate.Authentication.Authenticator;
 import com.cybersoft.askmate.controller.Controller;
 import com.cybersoft.askmate.dao.DataManager;
 
@@ -21,11 +22,13 @@ public class AskMate {
 
         // Instantiate required stuff
         DataManager dataManager = new DataManager();
-        Controller controller = new Controller(dataManager);
+        Authenticator authenticator = new Authenticator();
+        Controller controller = new Controller(dataManager, authenticator);
 
         // routes
         get("/", controller::renderQuestions);
         get("/register", controller::renderRegsiterForm);
+        post("/register", controller::registerUser);
         get("/questions/:id", controller::renderSingleQuestion);
         post("/submit-new-question", controller::submitQuestion);
         post("/questions/:id/answer", controller::submitAnswer);

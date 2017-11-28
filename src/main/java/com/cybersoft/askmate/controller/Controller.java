@@ -1,14 +1,18 @@
 package com.cybersoft.askmate.controller;
 
+import com.cybersoft.askmate.Authentication.Authenticator;
 import com.cybersoft.askmate.dao.DataManager;
 import com.cybersoft.askmate.model.Answer;
 import com.cybersoft.askmate.model.Question;
+import com.cybersoft.askmate.model.User;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import javax.persistence.Query;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +21,13 @@ import java.util.Map;
 public class Controller {
 
     private DataManager dataManager;
+    private Authenticator authenticator;
+
     private Map params = new HashMap();
 
-    public Controller(DataManager dataManager) {
+    public Controller(DataManager dataManager, Authenticator authenticator) {
         this.dataManager = dataManager;
+        this.authenticator = authenticator;
     }
 
     // Rendering functions
@@ -47,7 +54,39 @@ public class Controller {
         return renderTemplate(new HashMap(), "register");
     }
 
+
     //Utilities
+
+    public String registerUser(Request request, Response response) {
+        User user = createUserFromRequest(request);
+
+        if (user != null) {
+            params.put("user", user);
+
+            //TODO re-registering user. (ConstraintViolationException)
+            dataManager.persist(user);
+            return renderTemplate(params, "index");
+        }
+
+        return renderTemplate(params, "register");
+
+    }
+
+    private User createUserFromRequest(Request request) {
+        String username = request.queryParams("username");
+        String email = request.queryParams("email");
+        String password = request.queryParams("password");
+        String passwordHash;
+        try {
+            passwordHash = authenticator.createHash(password);
+            User user = new User(username, email, passwordHash);
+            return user;
+
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public String submitQuestion(Request req, Response res) {
         Question question = createQuestionFromRequest(req);
