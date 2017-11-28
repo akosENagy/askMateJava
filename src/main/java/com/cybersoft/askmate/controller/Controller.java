@@ -50,9 +50,7 @@ public class Controller {
         Answer answer =  new Answer(req.queryParams("new-answer-title"), req.queryParams("new-answer-content"));
         Query query = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getById");
         String path = req.pathInfo();
-        System.out.println(path);
         path = path.split("/")[path.split("/").length - 2];
-        System.out.println(path);
         int questionId = Integer.valueOf(path);
         query.setParameter("id", questionId);
         Question question = (Question) query.getSingleResult();
