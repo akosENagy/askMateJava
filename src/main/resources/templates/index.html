@@ -5,7 +5,7 @@
     <nav th:replace="header :: nav"></nav>
 
     <div class="container index-content">
-        <div id="ask-button-container">
+        <div th:if="${user}" id="ask-button-container">
             <button id="new-question-button">Ask a new question</button><br />
         </div>
         <div id="new-question-container">
