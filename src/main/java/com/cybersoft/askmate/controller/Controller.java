@@ -16,19 +16,24 @@ import java.util.Map;
 
 public class Controller {
 
+    private DataManager dataManager;
     private Map params = new HashMap();
+
+    public Controller(DataManager dataManager) {
+        this.dataManager = dataManager;
+    }
 
     // Rendering functions
     public String renderQuestions(Request req, Response res){
         Map params = new HashMap<>();
-        List<Question> questions = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getAll").getResultList();
+        List<Question> questions = dataManager.getEntityManager().createNamedQuery("Question.getAll").getResultList();
         params.put("questions", questions);
         return renderTemplate(params, "index");
     }
 
     public String renderSingleQuestion(Request req, Response res) {
         Map params = new HashMap<>();
-        Query query = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getById");
+        Query query = dataManager.getEntityManager().createNamedQuery("Question.getById");
         String path = req.pathInfo();
         path = path.split("/")[path.split("/").length - 1];
         int questionId = Integer.valueOf(path);
@@ -46,21 +51,21 @@ public class Controller {
 
     public String submitQuestion(Request req, Response res) {
         Question question = createQuestionFromRequest(req);
-        DataManager.getInstance().persist(question);
+        dataManager.persist(question);
         res.redirect("/");
         return null;
     }
 
     public String submitAnswer(Request req, Response res) {
         Answer answer =  new Answer(req.queryParams("new-answer-title"), req.queryParams("new-answer-content"));
-        Query query = DataManager.getInstance().getEntityManager().createNamedQuery("Question.getById");
+        Query query = dataManager.getEntityManager().createNamedQuery("Question.getById");
         String path = req.pathInfo();
         path = path.split("/")[path.split("/").length - 2];
         int questionId = Integer.valueOf(path);
         query.setParameter("id", questionId);
         Question question = (Question) query.getSingleResult();
         answer.setQuestion(question);
-        DataManager.getInstance().persist(answer);
+        dataManager.persist(answer);
 
         res.redirect("/questions/" + questionId);
         return null;

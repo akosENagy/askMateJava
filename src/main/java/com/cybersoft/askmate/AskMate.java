@@ -1,13 +1,12 @@
 package com.cybersoft.askmate;
 
 import com.cybersoft.askmate.controller.Controller;
+import com.cybersoft.askmate.dao.DataManager;
 
 import static spark.Spark.*;
 
 
 public class AskMate {
-
-    private Controller controller;
 
     public static void main(String[] args) {
         AskMate app = new AskMate();
@@ -20,7 +19,9 @@ public class AskMate {
         staticFileLocation("/public");
         port(8888);
 
-        this.controller = new Controller();
+        // Instantiate required stuff
+        DataManager dataManager = new DataManager();
+        Controller controller = new Controller(dataManager);
 
         // routes
         get("/", controller::renderQuestions);

@@ -7,16 +7,7 @@ import javax.persistence.Persistence;
 
 public class DataManager {
 
-    private static DataManager instance;
-
     private EntityManagerFactory entityManagerFactory;
-
-    public static DataManager getInstance() {
-        if (instance == null) {
-            instance = new DataManager();
-        }
-        return instance;
-    }
 
     public DataManager() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("askmatePU");
